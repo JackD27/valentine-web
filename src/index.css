@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@keyframes heart-fall {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.animate-heart {
+  animation-name: heart-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
