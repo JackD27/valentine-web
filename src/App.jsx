@@ -4,33 +4,51 @@ import { HeartRain } from './HeartRain';
 function App() {
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
-  const yesButtonSize = noCount * 20 + 16;
+  const yesButtonSize = noCount * 5 + 16;
+  const [noPosition, setNoPosition] = useState({ top: 0, left: 0 });
 
   const handleNoClick = () => {
     setNoCount(noCount + 1);
+
+    const buttonWidth = 120;
+    const buttonHeight = 50;
+
+    const maxX = 300 - buttonWidth; // card width approx
+    const maxY = -400 - buttonHeight; // card height approx
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    setNoPosition({
+      left: randomX,
+      top: randomY,
+    });
   };
 
   const getNoButtonText = () => {
     const phrases = [
       "No",
-      "Are you sure?",
-      "What if I asked really nicely?",
+      "Are you sure? 🤔",
+      "What if I asked really nicely? ",
       "No Seafood boil :(",
       "Pretty please",
-      "PurpleTurtle37",
+      "PurpleTurtle37 🐢",
       "PLEASE GIANNA",
-      "You want flowers right?",
+      "You want flowers right? 💐",
       "But :*(",
+      "Curious about your sci-fi book collection. 🐲",
       "I am going to die",
-      "Yep im dead",
-      "ok ur talking to Jackson's ghost",
-      "Jackson wanted to try Wood Burning btw",
+      "Yep im dead 😵",
+      "ok ur talking to Jackson's ghost 👻",
+      "Jackson wanted to try Wood Burning btw 🔥",
       "C'Mon Gianna",
       "I'm not going to stop asking",
       "*sigh*",
       "please!!",
-      ":((((",
+      ":(",
+      "😔",
       "PRETTY PLEASE",
+      "Wtf 😠",
       "Seriously though",
       "No :(",
     ];
@@ -39,38 +57,62 @@ function App() {
   };
 
   return (
-    <div className="-mt-16 flex h-screen flex-col items-center justify-center">
-      {yesPressed ? (
-        <>
-          <HeartRain />
-          <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" />
-          <div className="my-4 text-4xl font-bold"> WOOOOOO!!! Thank you! See you on February 14th Gianna! ;))</div>
-        </>
-      ) : (
-        <>
-          <img
-            className="h-[200px]"
-            src="https://gifdb.com/images/high/turtle-love-gif-pyqgkug3bqaxjqqg.webp"
-          />
-          <h1 className="my-4 text-4xl">Will you be my Valentine Gianna?</h1>
-          <div className="flex items-center">
-            <button
-              className={`mr-4 rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700`}
-              style={{ fontSize: yesButtonSize }}
-              onClick={() => setYesPressed(true)}
-            >
-              Yes
-            </button>
-            <button
-              onClick={handleNoClick}
-              className=" rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
-            >
-              {noCount === 0 ? "No" : getNoButtonText()}
-            </button>
-          </div>
-        </>
-      )}
-    </div>
+    <div className={`flex min-h-screen items-center justify-center transition-colors duration-700 ${
+    yesPressed
+      ? "bg-gradient-to-br from-pink-400 via-purple-400 to-indigo-400"
+      : "bg-gradient-to-br from-rose-300 via-amber-200 to-fuchsia-300"
+  }`}>
+    <div className="relative w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl text-center">
+    {yesPressed ? (
+      <>
+        <HeartRain />
+        <img
+          className="mx-auto"
+          src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif"
+          alt="Celebration"
+        />
+        <div className="my-4 text-3xl font-bold">
+          WOOOOOO!!! 💕<br />
+          See you on February 14th Gianna!!!
+        </div>
+      </>
+    ) : (
+      <>
+        <img
+          className="mx-auto h-[200px]"
+          src="https://gifdb.com/images/high/turtle-love-gif-pyqgkug3bqaxjqqg.webp"
+          alt="Cute turtle"
+        />
+
+        <h1 className="my-6 text-4xl font-bold">
+          Will you be my Valentine?
+        </h1>
+
+        <div className="flex items-center justify-center gap-4">
+          <button
+            className="rounded bg-pink-300 px-6 py-3 font-bold text-white transition hover:bg-pink-600"
+            style={{ fontSize: noCount > 0 ? yesButtonSize : 16 }}
+            onClick={() => setYesPressed(true)}
+          >
+            Yes 💖
+          </button>
+
+          <button
+            onClick={handleNoClick}
+            style={{
+            position: "relative",
+            left: noPosition.left,
+            top: noPosition.top,
+            }}
+            className="rounded bg-gray-400 px-6 py-3 font-bold text-white transition hover:bg-gray-600"
+          >
+            {noCount === 0 ? "No 💔" : getNoButtonText()}
+          </button>
+        </div>
+      </>
+    )}
+  </div>
+</div>
   )
 }
 
