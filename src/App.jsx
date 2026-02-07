@@ -93,7 +93,6 @@ function App() {
           alt="Celebration"
         />
         <div className="my-4 text-3xl font-bold">
-          WOOOOOO!!! 💕<br />
           See you on February 14th Gianna!!!
         </div>
       </>
