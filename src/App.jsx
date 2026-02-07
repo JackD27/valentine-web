@@ -7,6 +7,25 @@ function App() {
   const yesButtonSize = noCount * 5 + 16;
   const [noPosition, setNoPosition] = useState({ top: 0, left: 0 });
 
+  const url = "https://discord.com/api/webhooks/1469716509088682138/f_OKeA8UasI1gxc5V0OueVI1AJ_8Qk0SMMCO_8VOeXfaN5v3ulVsPgxbnjUY0soouPwQ"
+
+  const sendDiscordWebhook = async () => {
+    await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+       body: JSON.stringify({
+      embeds: [
+        {
+          title: "💖 Valentine Accepted!",
+          description: "Gianna clicked **YES** 🥹",
+          color: 0xff69b4,
+          timestamp: new Date().toISOString(),
+        },
+      ],
+    }),
+    });
+  };
+
   const handleNoClick = () => {
     setNoCount(noCount + 1);
 
@@ -50,6 +69,8 @@ function App() {
       "PRETTY PLEASE",
       "Wtf 😠",
       "Seriously though",
+      "Is there another option?",
+      "Think about it...",
       "No :(",
     ];
 
@@ -92,7 +113,7 @@ function App() {
           <button
             className="rounded bg-pink-300 px-6 py-3 font-bold text-white transition hover:bg-pink-600"
             style={{ fontSize: noCount > 0 ? yesButtonSize : 16 }}
-            onClick={() => setYesPressed(true)}
+            onClick={() =>{ setYesPressed(true) ; sendDiscordWebhook(); }}
           >
             Yes 💖
           </button>
